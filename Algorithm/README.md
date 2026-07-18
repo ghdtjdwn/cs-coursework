@@ -2,7 +2,7 @@
 
 정렬 알고리즘 4종을 C++로 구현하되, **이동 의미론(move semantics)으로 불필요한 복사를 제거**하는 데 초점을 둔 과제입니다. 객체의 생성·복사·이동·소멸 횟수를 세는 계측형 타입 위에서 동작하도록 설계되어, "정렬 중 복사 0회"를 목표로 합니다.
 
-> **기술 스택:** C++ (C++11 이상) · STL(`std::vector`, iterator) · `std::move`/rvalue reference · `std::function` · `std::swap`
+> **기술 스택:** C++20 · STL(`std::vector`, iterator) · `std::move`/rvalue reference · `std::function` · `std::swap`
 
 소스: [`src/`](./src) — `testmain.cpp`(테스트 하니스), `hw1_myheader.h`(정렬 구현), `MyInteger.h`(계측 타입), `hw1_common.h`(공통 정의)
 
@@ -38,6 +38,6 @@
 
 ## 실행
 ```bash
-g++ -std=c++17 -O2 src/testmain.cpp -o sort_test
+g++ -std=c++20 -O2 src/testmain.cpp -o sort_test
 ./sort_test     # 정렬 전/후 배열과 생성·복사·이동·소멸 호출 횟수 출력 (복사 0 목표)
 ```

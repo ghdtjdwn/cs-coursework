@@ -1,6 +1,4 @@
-# 🎓 숭실대학교 컴퓨터학부 전공 과제 포트폴리오
-
-> **홍성주 (Hong Seong-ju)** · 학번 20221528 · Soongsil University, School of Computer Science & Engineering
+# 숭실대학교 컴퓨터학부 전공 과제 포트폴리오
 
 학부 전공 수업에서 직접 수행한 과제와 프로젝트를 **과목별로 정리한 포트폴리오**입니다.
 시스템 프로그래밍(C), 알고리즘·자료구조(C++/Java), 딥러닝(PyTorch), 네트워크 프로그래밍(Python),
@@ -8,6 +6,18 @@
 컴퓨터공학 전반을 아우르는 결과물을 담고 있습니다.
 
 각 과목 폴더의 `README.md`에 **과제 목표 → 구현 내용 → 핵심 기술 → 결과**가 상세히 정리되어 있습니다.
+
+대표 검증 대상은 Programming Languages, Computer Architecture, Algorithm 세 과목입니다.
+`python3 -m unittest discover -s portfolio_tests -v` 한 명령으로 독립 빌드와 핵심 동작을
+재현할 수 있습니다. 나머지 제출물의 공개 범위와 개인정보 한계는
+[`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md)에 구분했습니다.
+
+현재 트리와 가져온 Git 이력의 공개 범위 감사는
+`python3 scripts/audit_public_surface.py --full`로 재현할 수 있습니다. 이 검사는 탐지값이나
+파일 경로를 출력하지 않고 집계만 보고하며, 전체 저장소를 곧바로 공개해도 된다는 보증은
+하지 않습니다. 실제 감사 결과와 남은 수동 검토 범위는
+[`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md), 재현 중 해결한 문제는
+[`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)에 기록했습니다.
 
 ---
 
@@ -106,8 +116,8 @@ Soongsil/
 make                      # 제공된 Makefile 사용
 gcc -o out src.c          # 단일 파일 직접 컴파일
 
-# C++ (Algorithm)
-g++ -std=c++17 -O2 testmain.cpp -o sort_test
+# C++ (Algorithm: MyInteger의 <=> 연산 때문에 C++20 사용)
+g++ -std=c++20 -O2 testmain.cpp -o sort_test
 
 # Java (Data Structures, OOP, Computer Networks)
 javac myCalculator.java && java myCalculator
@@ -119,5 +129,6 @@ python interpreter.py
 jupyter notebook   # 또는 Google Colab 업로드
 ```
 
-> 📝 소스코드 내 한글 주석은 모두 **UTF-8**로 정리되어 GitHub에서 정상적으로 표시됩니다.
-> 보고서(PDF/DOCX)와 실행 화면 캡처도 함께 포함하여 과제 수행 내용을 검증할 수 있도록 했습니다.
+> 소스코드 내 한글 주석은 UTF-8로 정리했습니다. PDF/DOCX·캡처·notebook·model 파일은
+> 역사적 제출 archive이며, 개인정보와 제3자 과제 문구를 개별 검토하기 전에는 대표
+> 포트폴리오 근거로 사용하지 않습니다. 범위는 [`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md)를 따릅니다.

@@ -127,7 +127,7 @@ class RepeatStmt:
         while True:
             for stmt in self.body:
                 stmt.execute(env, output)
-            if not self.cond.eval(env):
+            if self.cond.eval(env):
                 break
 
 
