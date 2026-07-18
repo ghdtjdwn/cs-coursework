@@ -14,9 +14,13 @@
 - Validation: `python3 -m unittest discover -s portfolio_tests -v` passed all six tests. The
   suite compiles sources in a temporary directory, compares both interpreter implementations,
   exercises valid and malformed RISC-V input, checks four copy-free sorts, and runs the curated
-  privacy gates without modifying coursework outputs in place. The latest full audit inspected 14 commits
-  and 225 blobs across fetched refs and correctly refused a repository-wide privacy claim; a redacted
-  Gitleaks history scan reported zero secret findings.
-- Delivery: prepared on a dedicated feature branch without report/spec removal or history rewrite.
-  See `PUBLICATION_SCOPE.md` for aggregate findings and
-  `TROUBLESHOOTING.md` for the shallow-clone failure and fix.
+  privacy gates without modifying coursework outputs in place. At merge commit `07087bf`, a clean,
+  full-depth checkout of `main` inspected 7 commits and 219 unique blobs and correctly refused a
+  repository-wide privacy claim; the redacted Gitleaks gate reported zero secret findings.
+- Delivery: [pull request #1](https://github.com/ghdtjdwn/cs-coursework/pull/1) was merged into
+  `main` as `07087bf7b3416c47b4b7816f9589591f6959b522`. The
+  [post-merge workflow](https://github.com/ghdtjdwn/cs-coursework/actions/runs/29646213479)
+  passed both `build-and-test` and `gitleaks`. No report/spec file was removed and history was not
+  rewritten. The repository has no runtime deployment surface, so merge plus green CI completed
+  delivery. See `PUBLICATION_SCOPE.md` for aggregate findings and `TROUBLESHOOTING.md` for the
+  shallow-clone failure and fix.

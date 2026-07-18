@@ -29,8 +29,11 @@ the same false assurance or test failure in CI.
 
 ### Validation and remaining risk
 
-After the fetch, all six representative tests passed. The latest full audit reported 14
-commits and 225 blobs across the currently fetched refs, and a redacted Gitleaks
-history scan reported zero secret findings. Generic identity markers and binary
-formats without semantic scanners remain in the archive, so publication is still
-limited to the curated surface described in `PUBLICATION_SCOPE.md`.
+After the fetch, all six representative tests passed. At merge commit `07087bf`, a clean,
+full-depth, single-branch checkout of `main` reported 7 commits and 219 unique blobs; the
+[post-merge workflow](https://github.com/ghdtjdwn/cs-coursework/actions/runs/29646213479)
+then passed both `build-and-test` and the redacted Gitleaks gate. Because the full audit scans
+`--all`, commit counts vary when additional local branches or stashes are present; comparisons
+must use the same commit and ref set. Generic identity markers and binary formats without
+semantic scanners remain in the archive, so publication is still limited to the curated surface
+described in `PUBLICATION_SCOPE.md`.
