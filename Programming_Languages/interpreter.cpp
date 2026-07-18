@@ -177,7 +177,7 @@ struct RepeatStmt : Stmt {
             for (const auto& stmt : body) {
                 stmt->execute(env, output);
             }
-            if (!cond->eval(env)) {
+            if (cond->eval(env)) {
                 break;
             }
         }

@@ -4,17 +4,18 @@
 
 #include <random>
 #include <algorithm>
+#include <stdexcept>
 
 
 void fill_random_sequence(std::vector<MyInteger> &vec, int count, bool unique, int min, int max_exclusive)
 {
 	if ( count <= 0 )
-		throw std::exception{ "fill_random_sequence()에 실패했습니다. count 값이 0 또는 음수입니다." };
+		throw std::invalid_argument{ "fill_random_sequence()에 실패했습니다. count 값이 0 또는 음수입니다." };
 
 	if ( unique )
 	{
 		if ( max_exclusive < min + count )
-			throw std::exception{ "fill_random_sequence()에 실패했습니다. unique == true임에도 max_exclusive 값이 너무 작습니다." };
+			throw std::invalid_argument{ "fill_random_sequence()에 실패했습니다. unique == true임에도 max_exclusive 값이 너무 작습니다." };
 
 		std::default_random_engine eng{ std::random_device{}() };
 
@@ -36,7 +37,7 @@ void fill_random_sequence(std::vector<MyInteger> &vec, int count, bool unique, i
 	else
 	{
 		if ( max_exclusive <= min )
-			throw std::exception{ "fill_random_sequence()에 실패했습니다. max_exclusive 값이 min 값보다 작거나 같습니다." };
+			throw std::invalid_argument{ "fill_random_sequence()에 실패했습니다. max_exclusive 값이 min 값보다 작거나 같습니다." };
 
 		std::default_random_engine eng{ std::random_device{}() };
 		std::uniform_int_distribution dist{ min, max_exclusive - 1 };
