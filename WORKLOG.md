@@ -4,8 +4,8 @@
 
 - Objective: help reviewers understand the coursework scope, reproducible evidence, and publication boundary before browsing individual subject folders.
 - Changes: moved the CI badge, six-test reproduction command, and privacy boundary to the top; simplified decorative headings and links; and made the twelve-subject table more compact without changing historical coursework or reported outcomes.
-- Validation: `python3 -m unittest discover -s portfolio_tests -v` passed all six representative build-and-behavior tests. `python3 scripts/audit_public_surface.py --full` reviewed the complete nine-commit, 222-blob history, found zero curated identity violations, and continued to report that repository-wide privacy cannot be claimed. `git diff --check` passed.
-- Delivery: under review on a dedicated portfolio README branch; commit, pull request, CI, and merge results will be appended after delivery.
+- Validation: `python3 -m unittest discover -s portfolio_tests -v` passed all six representative build-and-behavior tests. `python3 scripts/audit_public_surface.py --full` reviewed the complete available history, found zero curated identity violations, and continued to report that repository-wide privacy cannot be claimed. `git diff --check` passed.
+- Delivery: [pull request #3](https://github.com/ghdtjdwn/cs-coursework/pull/3) passed the representative-build and Gitleaks jobs, and its exact head commit was fast-forwarded into `main`. This repository has no runtime deployment surface.
 
 ## 2026-07-18 — Representative builds and publication boundary
 
