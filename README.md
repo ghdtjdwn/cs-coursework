@@ -1,16 +1,22 @@
 # 숭실대학교 컴퓨터학부 전공 과제 포트폴리오
 
-학부 전공 수업에서 직접 수행한 과제와 프로젝트를 **과목별로 정리한 포트폴리오**입니다.
-시스템 프로그래밍(C), 알고리즘·자료구조(C++/Java), 딥러닝(PyTorch), 네트워크 프로그래밍(Python),
-데이터 분석, 프로그래밍 언어론(인터프리터 구현), 컴퓨터 구조(RISC-V 시뮬레이터) 등
-컴퓨터공학 전반을 아우르는 결과물을 담고 있습니다.
+[![Representative coursework](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/portfolio.yml/badge.svg)](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/portfolio.yml)
 
-각 과목 폴더의 `README.md`에 **과제 목표 → 구현 내용 → 핵심 기술 → 결과**가 상세히 정리되어 있습니다.
+숭실대학교 컴퓨터학부 전공 수업에서 구현한 시스템, 알고리즘, 네트워크, AI와 데이터 분석 과제를
+과목별로 정리한 학습 아카이브입니다. 각 과목 README는 과제 목표, 구현, 핵심 기술과 결과를 설명하고,
+대표 세 과목은 한 명령으로 독립 빌드와 핵심 동작을 재현할 수 있습니다.
+
+## 검증과 공개 범위
 
 대표 검증 대상은 Programming Languages, Computer Architecture, Algorithm 세 과목입니다.
-`python3 -m unittest discover -s portfolio_tests -v` 한 명령으로 독립 빌드와 핵심 동작을
-재현할 수 있습니다. 나머지 제출물의 공개 범위와 개인정보 한계는
-[`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md)에 구분했습니다.
+
+```bash
+python3 -m unittest discover -s portfolio_tests -v
+```
+
+이 검증은 Python/C++ interpreter, RISC-V disassembler·simulator와 네 가지 sorting 구현을 임시
+디렉터리에서 build하고 핵심 동작을 확인합니다. 전체 과제 제출물의 품질이나 역사적 report의 모든
+수치를 자동 검증한다는 의미는 아닙니다.
 
 현재 트리와 가져온 Git 이력의 공개 범위 감사는
 `python3 scripts/audit_public_surface.py --full`로 재현할 수 있습니다. 이 검사는 탐지값이나
@@ -19,63 +25,57 @@
 [`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md), 재현 중 해결한 문제는
 [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)에 기록했습니다.
 
----
-
-## 📌 한눈에 보기
+## 과목 한눈에 보기
 
 | 과목 | 핵심 주제 | 언어 / 기술 | 바로가기 |
 |------|-----------|-------------|----------|
-| **Linux System Programming** | 자동 채점 시스템, MD5 기반 중복파일 탐색·정리 도구(`fdupes` 류, ~2,300줄) | C, POSIX, pthread, OpenSSL, BFS | [📂](./Linux_System_Programming) |
-| **Programming Languages** | 직접 만든 미니 언어의 **렉서 + 재귀하향 파서 + AST 트리워킹 인터프리터** | Python, C++ | [📂](./Programming_Languages) |
-| **Computer Architecture** | **RISC-V 기계어 디스어셈블러 + 명령어 시뮬레이터** | C, RISC-V ISA | [📂](./Computer_Architecture) |
-| **Artificial Intelligence** | CNN(Inception)·**Transformer(from scratch)**·**ViT**·**BERT 파인튜닝** | PyTorch, HuggingFace | [📂](./Artificial_Intelligence) |
-| **Algorithm** | **이동 의미론(move semantics)** 기반 정렬 4종 (복사 비용 최소화) | C++ (STL, std::move) | [📂](./Algorithm) |
-| **Network Programming** | 소켓·**TLS**·**asyncio**·**ZeroMQ** 분산 처리·HTTP/Flask·웹 스크래핑 | Python | [📂](./Network_Programming) |
-| **File Processing** | 저수준 파일 I/O, **FTL(Flash Translation Layer)**, 가변길이 레코드 DB | C, POSIX syscalls | [📂](./File_Processing) |
-| **Data Structures** | 스택 기반 수식 계산기, 정렬 4종, 동적 배열 클래스 | Java | [📂](./Data_Structures) |
-| **Object-Oriented Programming** | 캡슐화·상속·다형성·추상클래스·제네릭 컬렉션 | Java | [📂](./Object_Oriented_Programming) |
-| **Data Analysis** | 표 연산 → 시뮬레이션·확률 → 가설검정·A/B 테스트 → 회귀 (Berkeley *Data 8*) | Python, NumPy, `datascience` | [📂](./Data_Analysis) |
-| **Computer Networks** | TCP / UDP 소켓 통신 프로그램 | Java (Socket, DatagramSocket) | [📂](./Computer_Networks) |
-| **p5.js** | 크리에이티브 코딩 / 인터랙티브 그래픽스 | JavaScript, p5.js | [📂](./p5.js) |
+| **Linux System Programming** | 자동 채점 시스템, MD5 기반 중복파일 탐색·정리 도구(`fdupes` 류, ~2,300줄) | C, POSIX, pthread, OpenSSL, BFS | [과목 보기](./Linux_System_Programming) |
+| **Programming Languages** | 직접 만든 미니 언어의 렉서, 재귀하향 parser, AST tree-walking interpreter | Python, C++ | [과목 보기](./Programming_Languages) |
+| **Computer Architecture** | RISC-V 기계어 disassembler와 instruction simulator | C, RISC-V ISA | [과목 보기](./Computer_Architecture) |
+| **Artificial Intelligence** | CNN(Inception), Transformer from scratch, ViT, BERT fine-tuning | PyTorch, Hugging Face | [과목 보기](./Artificial_Intelligence) |
+| **Algorithm** | move semantics 기반 정렬 4종과 복사 비용 계측 | C++ (STL, `std::move`) | [과목 보기](./Algorithm) |
+| **Network Programming** | socket, TLS, asyncio, ZeroMQ 분산 처리, HTTP/Flask, web scraping | Python | [과목 보기](./Network_Programming) |
+| **File Processing** | 저수준 file I/O, FTL(Flash Translation Layer), 가변 길이 record DB | C, POSIX system calls | [과목 보기](./File_Processing) |
+| **Data Structures** | stack 기반 수식 계산기, 정렬 4종, 동적 배열 class | Java | [과목 보기](./Data_Structures) |
+| **Object-Oriented Programming** | encapsulation, inheritance, polymorphism, abstract class, generic collection | Java | [과목 보기](./Object_Oriented_Programming) |
+| **Data Analysis** | 표 연산, simulation·probability, hypothesis test·A/B test, regression | Python, NumPy, `datascience` | [과목 보기](./Data_Analysis) |
+| **Computer Networks** | TCP/UDP socket 통신 프로그램 | Java | [과목 보기](./Computer_Networks) |
+| **p5.js** | creative coding과 interactive graphics | JavaScript, p5.js | [과목 보기](./p5.js) |
 
----
-
-## ⭐ 대표 프로젝트
+## 대표 구현
 
 ### 1. MD5 기반 중복 파일 탐색·정리 도구 — `ssu_find-md5` (Linux System Programming)
 - 디렉토리 트리를 **BFS**로 순회하며 후보 파일을 수집하고, **OpenSSL EVP** 인터페이스로 파일을 청크 단위로 읽어 **MD5 해시**를 계산해 동일 내용 파일을 하나의 "중복 세트"로 묶는 `fdupes` 스타일 CLI 도구.
 - 확장자/크기(B·KB·MB·GB)/접근·수정·변경 시각(`YYYY:MM:DD:HH`, 윤년 처리 포함)/권한(8진수)/하드링크/제외 디렉토리 등 **풍부한 필터 옵션**과, 보존 규칙(newest·oldest·최단·최장 경로)에 따른 중복 삭제 기능 구현.
 - 배열 없이 **연결 리스트만으로 삽입 정렬**, 메모리 누수 없는 동적 자료구조 관리. 단일 소스 **약 2,300줄**.
-- 👉 [자세히 보기](./Linux_System_Programming)
+- [과목 README](./Linux_System_Programming)
 
 ### 2. 미니 프로그래밍 언어 인터프리터 (Programming Languages)
 - 변수/상수 선언, `repeat-until` 반복문, `select-else` 조건문, 산술·비교 연산을 지원하는 미니 언어를 위해 **렉서(정규식 토크나이저) → 재귀하향 파서 → AST → 트리워킹 인터프리터** 파이프라인을 전부 직접 구현.
 - 연산자 우선순위, 단항 부정, 괄호, 상수 재할당 금지 등 **문법·의미 규칙**을 파서·평가기 수준에서 처리. **Python · C++ 두 버전**으로 구현.
-- 👉 [자세히 보기](./Programming_Languages)
+- [과목 README](./Programming_Languages)
 
 ### 3. RISC-V 디스어셈블러 + 명령어 시뮬레이터 (Computer Architecture)
 - 32비트 RISC-V 기계어(이진 문자열)를 읽어 **R/I/Load/Store/Branch 타입**을 디코딩하고, 어셈블리(`.s`)로 역어셈블(분기 대상에는 라벨 자동 생성).
 - 이어서 32개 레지스터 + PC를 갖는 CPU 모델 위에서 **fetch–decode–execute 루프**로 실제 실행하여 최종 레지스터 값을 출력. 즉치값 부호 확장, B-type 즉치값 재조합 등 ISA 디테일 구현.
-- 👉 [자세히 보기](./Computer_Architecture)
+- [과목 README](./Computer_Architecture)
 
 ### 4. 딥러닝: CNN · Transformer · ViT · BERT 파인튜닝 (Artificial Intelligence)
 - **CNN** (CIFAR-10): **Inception 모듈**을 설계해 테스트 정확도 **50% → 83%** 로 개선.
 - **Transformer를 밑바닥부터 구현** (Positional Encoding, Multi-Head Attention 등) — 100 epoch 학습.
 - **Vision Transformer(ViT)** 구현 (Patch Embedding 등) → **테스트 정확도 85.06%**.
 - **최종 프로젝트 — BERT 파인튜닝** (IMDB 감성분석): Label Smoothing·Cosine Scheduler·시드 튜닝으로 **검증 정확도 94.20% → 94.56%**.
-- 👉 [자세히 보기](./Artificial_Intelligence)
+- [과목 README](./Artificial_Intelligence)
 
 ### 5. 이동 의미론 기반 정렬 알고리즘 (Algorithm)
 - 삽입·선택·병합·퀵 정렬을 C++로 구현하되, 생성자/복사/이동/소멸 횟수를 세는 **계측형 타입(`MyInteger`)** 위에서 동작시켜 **`std::move`로 불필요한 복사를 제거**했음을 정량적으로 검증.
-- 👉 [자세히 보기](./Algorithm)
+- [과목 README](./Algorithm)
 
 ### 6. 고급 네트워크 프로그래밍 (Network Programming)
 - 원시 TCP/HTTPS 소켓, **TLS 에코 서버**, `pickle`+`struct` 직렬화, **asyncio 비동기 채팅 릴레이**, **ZeroMQ + memcached 분산 작업 처리**, HTTP 사전 서버, **Flask REST API + BeautifulSoup 웹 스크래핑**까지.
-- 👉 [자세히 보기](./Network_Programming)
+- [과목 README](./Network_Programming)
 
----
-
-## 🧰 기술 스택
+## 기술 스택
 
 - **Languages:** C, C++, Java, Python, JavaScript
 - **Systems / Low-level:** POSIX 시스템 콜, 파일 I/O, pthread, 시그널, OpenSSL(MD5), 플래시 메모리(FTL), RISC-V
@@ -83,9 +83,7 @@
 - **Networking:** TCP/UDP 소켓, TLS/SSL, asyncio, ZeroMQ, memcached, Flask, HTTP
 - **CS Fundamentals:** 자료구조, 알고리즘, 객체지향 설계, 컴파일러/인터프리터, 운영체제·컴퓨터구조 개념
 
----
-
-## 🗂️ 저장소 구조
+## 저장소 구조
 
 ```
 Soongsil/
@@ -105,9 +103,7 @@ Soongsil/
 
 각 폴더의 `README.md`에서 과제별 상세 설명을 확인하실 수 있습니다.
 
----
-
-## 🔧 빌드 & 실행
+## 빌드와 실행
 
 과제별 빌드/실행 방법은 각 과목 README에 기재되어 있습니다. 대표 예시는 다음과 같습니다.
 
