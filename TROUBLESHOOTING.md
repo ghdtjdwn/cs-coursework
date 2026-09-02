@@ -36,4 +36,4 @@ then passed both `build-and-test` and the redacted Gitleaks gate. Because the fu
 `--all`, commit counts vary when additional local branches or stashes are present; comparisons
 must use the same commit and ref set. Generic identity markers and binary formats without
 semantic scanners remain in the archive, so publication is still limited to the curated surface
-described in `PUBLICATION_SCOPE.md`.
+described in `PUBLIC_COURSEWORK_SCOPE.md`.

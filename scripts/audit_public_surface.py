@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit portfolio publication boundaries without printing matched private data."""
+"""Audit public-coursework boundaries without printing matched private data."""
 
 from __future__ import annotations
 
@@ -16,9 +16,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CURATED_FILES = {
-    ".github/workflows/portfolio.yml",
+    ".github/workflows/representative-coursework.yml",
     "README.md",
-    "PUBLICATION_SCOPE.md",
+    "PUBLIC_COURSEWORK_SCOPE.md",
     "TROUBLESHOOTING.md",
     "WORKLOG.md",
     "Programming_Languages/README.md",
@@ -30,8 +30,8 @@ CURATED_FILES = {
     "Algorithm/src/MyInteger.h",
     "Algorithm/src/hw1_common.h",
     "Algorithm/src/hw1_myheader.h",
-    "portfolio_tests/algorithm_harness.cpp",
-    "portfolio_tests/test_representative_projects.py",
+    "representative_coursework_tests/algorithm_harness.cpp",
+    "representative_coursework_tests/test_representative_projects.py",
     "scripts/audit_public_surface.py",
 }
 TEXT_SUFFIXES = {
@@ -237,7 +237,7 @@ def audit_history() -> dict[str, int | bool]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Audit the curated portfolio and optional archive/history")
+    parser = argparse.ArgumentParser(description="Audit representative public coursework and optional archive/history")
     parser.add_argument(
         "--full",
         action="store_true",

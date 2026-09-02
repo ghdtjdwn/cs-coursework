@@ -84,7 +84,7 @@ class RepresentativeProjectsTest(unittest.TestCase):
                 "-Wall",
                 "-Wextra",
                 "-IAlgorithm/src",
-                "portfolio_tests/algorithm_harness.cpp",
+                "representative_coursework_tests/algorithm_harness.cpp",
                 "-o",
                 str(cls.build / "algorithm_harness"),
             ],

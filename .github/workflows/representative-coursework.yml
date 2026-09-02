@@ -1,4 +1,4 @@
-name: Representative coursework
+name: Representative coursework verification
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Build and verify representative projects
-        run: python3 -m unittest discover -s portfolio_tests -v
+        run: python3 -m unittest discover -s representative_coursework_tests -v
 
   gitleaks:
     runs-on: ubuntu-latest

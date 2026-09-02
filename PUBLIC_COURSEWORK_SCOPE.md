@@ -1,12 +1,12 @@
-# Publication scope
+# Public coursework scope
 
-This repository is a historical coursework archive, not a uniformly curated
-public portfolio. The representative, reproducible surface is limited to:
+This repository is a historical coursework archive. The representative,
+reproducible public-coursework surface is limited to:
 
 - `Programming_Languages/interpreter.py`, `interpreter.cpp`, and its README
 - `Computer_Architecture/src/main.c` and its README
 - `Algorithm/src/MyInteger.h`, `hw1_common.h`, `hw1_myheader.h`, and its README
-- the build and behavior checks under `portfolio_tests/`
+- the build and behavior checks under `representative_coursework_tests/`
 
 The root README, this publication boundary, the work log, troubleshooting
 record, CI workflow, and privacy-audit script are also part of the curated
@@ -15,8 +15,8 @@ supporting surface. Together these are the 17 files enforced by the audit.
 PDF/DOCX reports, assignment specifications, screenshots, notebooks, trained
 model files, and the remaining course directories are archive-only material.
 They may contain submission identifiers, personal metadata, instructor-owned
-prompts, network details, or third-party content and should not be linked as
-portfolio evidence until reviewed individually.
+prompts, network details, or third-party content and should not be presented as
+representative public coursework until reviewed individually.
 
 `scripts/audit_public_surface.py` gates generic student-number and email
 patterns on the curated files and reports aggregate findings without printing
@@ -43,8 +43,8 @@ can increase when another branch or stash is present. The pinned clean-checkout 
 comparison baseline; the privacy conclusion does not depend on those counts remaining constant.
 
 These results do not certify the whole repository as privacy-clean. They show
-that only the curated surface is suitable as evidence today. Before broader
-publication, each archive item still needs manual review for personal names,
+that only the curated surface is suitable for representative public coursework
+today. Before broader publication, each archive item still needs manual review for personal names,
 faces, instructor-owned prompts, network details, and third-party rights. A
 clean publication repository containing only approved files is safer than
 rewriting this archive. No file removal or Git-history rewrite was performed.

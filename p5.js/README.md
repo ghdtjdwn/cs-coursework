@@ -45,4 +45,4 @@ JavaScript 그래픽스 라이브러리 **p5.js**로 제작한 인터랙티브 �
 ```bash
 python -m http.server 8000   # http://localhost:8000 접속 (또는 index.html 직접 열기)
 ```
-> 💡 이 과목은 원래 별도 저장소(`ghdtjdwn/p5js`)에 있던 작업을 본 포트폴리오로 통합한 것입니다.
+> 💡 이 과목은 원래 별도 저장소(`ghdtjdwn/p5js`)에 있던 작업을 이 과제 모음으로 통합한 것입니다.

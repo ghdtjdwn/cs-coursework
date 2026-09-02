@@ -1,6 +1,6 @@
-# 숭실대학교 컴퓨터학부 전공 과제 포트폴리오
+# 숭실대학교 컴퓨터학부 전공 과제 모음
 
-[![Representative coursework](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/portfolio.yml/badge.svg)](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/portfolio.yml)
+[![Representative coursework](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/representative-coursework.yml/badge.svg)](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/representative-coursework.yml)
 
 숭실대학교 컴퓨터학부 전공 수업에서 구현한 시스템, 알고리즘, 네트워크, AI와 데이터 분석 과제를
 과목별로 정리한 학습 아카이브입니다. 각 과목 README는 과제 목표, 구현, 핵심 기술과 결과를 설명하고,
@@ -11,7 +11,7 @@
 대표 검증 대상은 Programming Languages, Computer Architecture, Algorithm 세 과목입니다.
 
 ```bash
-python3 -m unittest discover -s portfolio_tests -v
+python3 -m unittest discover -s representative_coursework_tests -v
 ```
 
 이 검증은 Python/C++ interpreter, RISC-V disassembler·simulator와 네 가지 sorting 구현을 임시
@@ -22,7 +22,7 @@ python3 -m unittest discover -s portfolio_tests -v
 `python3 scripts/audit_public_surface.py --full`로 재현할 수 있습니다. 이 검사는 탐지값이나
 파일 경로를 출력하지 않고 집계만 보고하며, 전체 저장소를 곧바로 공개해도 된다는 보증은
 하지 않습니다. 실제 감사 결과와 남은 수동 검토 범위는
-[`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md), 재현 중 해결한 문제는
+[`PUBLIC_COURSEWORK_SCOPE.md`](./PUBLIC_COURSEWORK_SCOPE.md), 재현 중 해결한 문제는
 [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)에 기록했습니다.
 
 ## 과목 한눈에 보기
@@ -127,4 +127,4 @@ jupyter notebook   # 또는 Google Colab 업로드
 
 > 소스코드 내 한글 주석은 UTF-8로 정리했습니다. PDF/DOCX·캡처·notebook·model 파일은
 > 역사적 제출 archive이며, 개인정보와 제3자 과제 문구를 개별 검토하기 전에는 대표
-> 포트폴리오 근거로 사용하지 않습니다. 범위는 [`PUBLICATION_SCOPE.md`](./PUBLICATION_SCOPE.md)를 따릅니다.
+> 공개 과제로 다루지 않습니다. 범위는 [`PUBLIC_COURSEWORK_SCOPE.md`](./PUBLIC_COURSEWORK_SCOPE.md)를 따릅니다.
