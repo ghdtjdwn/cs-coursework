@@ -5,7 +5,7 @@
 - Objective: make the documentation and automation use consistent terms for automated guarantees and manual-review boundaries.
 - Changes: renamed the workflow, test directory, test module, scope document, and audit fields around coursework verification; aligned README, troubleshooting, and historical work-log wording with the same terminology. The required `build-and-test` job name and all build-and-behavior assertions remain unchanged.
 - Validation: `python3 -m unittest discover -s coursework_tests -v`, `python3 scripts/audit_public_surface.py --full`, and `git diff --check` passed against the renamed paths. The six behavioral and privacy tests still cover both interpreters, the RISC-V implementation, four sorting implementations, the verified file set, and locally available history.
-- Delivery: prepared as a documentation and verification-tooling update. The repository has no runtime deployment surface.
+- Delivery: [pull request #6](https://github.com/ghdtjdwn/cs-coursework/pull/6) was merged by fast-forwarding its exact head commit `a487dfaa4f897e3e64c03b9a8d447997a9c6ee17` into `main`. The [post-merge workflow](https://github.com/ghdtjdwn/cs-coursework/actions/runs/33676437483) passed both `build-and-test` and `gitleaks`. The repository has no runtime deployment surface.
 
 ## 2026-09-03 — Default-branch and dependency security controls
 
