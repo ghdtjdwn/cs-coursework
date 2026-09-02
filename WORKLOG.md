@@ -1,5 +1,12 @@
 # Work log
 
+## 2026-09-03 — Default-branch and dependency security controls
+
+- Objective: prevent unreviewed or unverified changes from reaching the curated coursework branch and surface known dependency vulnerabilities promptly.
+- Changes: activated a GitHub `main` ruleset that blocks branch deletion and force pushes, requires pull requests, and requires the `build-and-test` and `gitleaks` checks. Enabled Dependabot vulnerability alerts and automated security updates.
+- Validation: the GitHub rules API reports the four active rule types and both required checks for `main`. The enabled Dependabot alerts API reports zero open alerts.
+- Delivery: repository settings are active. This documentation change is delivered through a separate pull request; the repository has no runtime deployment surface.
+
 ## 2026-07-29 — Portfolio README information hierarchy
 
 - Objective: help reviewers understand the coursework scope, reproducible evidence, and publication boundary before browsing individual subject folders.
