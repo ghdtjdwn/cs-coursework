@@ -1,17 +1,17 @@
 # 숭실대학교 컴퓨터학부 전공 과제 모음
 
-[![Representative coursework](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/representative-coursework.yml/badge.svg)](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/representative-coursework.yml)
+[![Coursework verification](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/coursework-verification.yml/badge.svg)](https://github.com/ghdtjdwn/cs-coursework/actions/workflows/coursework-verification.yml)
 
 숭실대학교 컴퓨터학부 전공 수업에서 구현한 시스템, 알고리즘, 네트워크, AI와 데이터 분석 과제를
 과목별로 정리한 학습 아카이브입니다. 각 과목 README는 과제 목표, 구현, 핵심 기술과 결과를 설명하고,
-대표 세 과목은 한 명령으로 독립 빌드와 핵심 동작을 재현할 수 있습니다.
+세 과목은 한 명령으로 독립 빌드와 핵심 동작을 재현할 수 있습니다.
 
 ## 검증과 공개 범위
 
-대표 검증 대상은 Programming Languages, Computer Architecture, Algorithm 세 과목입니다.
+자동 검증 대상은 Programming Languages, Computer Architecture, Algorithm 세 과목입니다.
 
 ```bash
-python3 -m unittest discover -s representative_coursework_tests -v
+python3 -m unittest discover -s coursework_tests -v
 ```
 
 이 검증은 Python/C++ interpreter, RISC-V disassembler·simulator와 네 가지 sorting 구현을 임시
@@ -22,7 +22,7 @@ python3 -m unittest discover -s representative_coursework_tests -v
 `python3 scripts/audit_public_surface.py --full`로 재현할 수 있습니다. 이 검사는 탐지값이나
 파일 경로를 출력하지 않고 집계만 보고하며, 전체 저장소를 곧바로 공개해도 된다는 보증은
 하지 않습니다. 실제 감사 결과와 남은 수동 검토 범위는
-[`PUBLIC_COURSEWORK_SCOPE.md`](./PUBLIC_COURSEWORK_SCOPE.md), 재현 중 해결한 문제는
+[`COURSEWORK_VERIFICATION_SCOPE.md`](./COURSEWORK_VERIFICATION_SCOPE.md), 재현 중 해결한 문제는
 [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)에 기록했습니다.
 
 ## 과목 한눈에 보기
@@ -42,7 +42,7 @@ python3 -m unittest discover -s representative_coursework_tests -v
 | **Computer Networks** | TCP/UDP socket 통신 프로그램 | Java | [과목 보기](./Computer_Networks) |
 | **p5.js** | creative coding과 interactive graphics | JavaScript, p5.js | [과목 보기](./p5.js) |
 
-## 대표 구현
+## 구현 요약
 
 ### 1. MD5 기반 중복 파일 탐색·정리 도구 — `ssu_find-md5` (Linux System Programming)
 - 디렉토리 트리를 **BFS**로 순회하며 후보 파일을 수집하고, **OpenSSL EVP** 인터페이스로 파일을 청크 단위로 읽어 **MD5 해시**를 계산해 동일 내용 파일을 하나의 "중복 세트"로 묶는 `fdupes` 스타일 CLI 도구.
@@ -105,7 +105,7 @@ Soongsil/
 
 ## 빌드와 실행
 
-과제별 빌드/실행 방법은 각 과목 README에 기재되어 있습니다. 대표 예시는 다음과 같습니다.
+과제별 빌드/실행 방법은 각 과목 README에 기재되어 있습니다. 기본 예시는 다음과 같습니다.
 
 ```bash
 # C (Linux System Programming, File Processing)
@@ -126,5 +126,5 @@ jupyter notebook   # 또는 Google Colab 업로드
 ```
 
 > 소스코드 내 한글 주석은 UTF-8로 정리했습니다. PDF/DOCX·캡처·notebook·model 파일은
-> 역사적 제출 archive이며, 개인정보와 제3자 과제 문구를 개별 검토하기 전에는 대표
-> 공개 과제로 다루지 않습니다. 범위는 [`PUBLIC_COURSEWORK_SCOPE.md`](./PUBLIC_COURSEWORK_SCOPE.md)를 따릅니다.
+> 역사적 제출 archive이며, 개인정보와 제3자 과제 문구를 개별 검토하기 전에는 자동
+> 검증 범위로 간주하지 않습니다. 범위는 [`COURSEWORK_VERIFICATION_SCOPE.md`](./COURSEWORK_VERIFICATION_SCOPE.md)를 따릅니다.

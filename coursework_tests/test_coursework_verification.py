@@ -46,7 +46,7 @@ def encode_r(funct7: int, rs2: int, rs1: int, funct3: int, rd: int) -> str:
     return f"{instruction:032b}"
 
 
-class RepresentativeProjectsTest(unittest.TestCase):
+class CourseworkVerificationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.tempdir = tempfile.TemporaryDirectory()
@@ -84,7 +84,7 @@ class RepresentativeProjectsTest(unittest.TestCase):
                 "-Wall",
                 "-Wextra",
                 "-IAlgorithm/src",
-                "representative_coursework_tests/algorithm_harness.cpp",
+                "coursework_tests/algorithm_harness.cpp",
                 "-o",
                 str(cls.build / "algorithm_harness"),
             ],
@@ -163,7 +163,7 @@ class RepresentativeProjectsTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout, "4 sorting algorithms passed with zero copies\n")
 
-    def test_curated_public_surface_has_no_generic_identity_markers(self) -> None:
+    def test_verified_file_set_has_no_generic_identity_markers(self) -> None:
         result = run([sys.executable, "scripts/audit_public_surface.py"])
 
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

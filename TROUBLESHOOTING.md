@@ -4,8 +4,8 @@
 
 ### Context and impact
 
-The new full privacy regression test initially failed even though the curated
-surface passed. The audit reported that history had not been reviewed, so a
+The new full privacy regression test initially failed even though the verified
+file set passed. The audit reported that history had not been reviewed, so a
 repository-wide or history-reviewed claim would have been unsupported.
 
 ### Expected and actual behavior
@@ -29,11 +29,11 @@ the same false assurance or test failure in CI.
 
 ### Validation and remaining risk
 
-After the fetch, all six representative tests passed. At merge commit `07087bf`, a clean,
+After the fetch, all six coursework tests passed. At merge commit `07087bf`, a clean,
 full-depth, single-branch checkout of `main` reported 7 commits and 219 unique blobs; the
 [post-merge workflow](https://github.com/ghdtjdwn/cs-coursework/actions/runs/29646213479)
 then passed both `build-and-test` and the redacted Gitleaks gate. Because the full audit scans
 `--all`, commit counts vary when additional local branches or stashes are present; comparisons
 must use the same commit and ref set. Generic identity markers and binary formats without
-semantic scanners remain in the archive, so publication is still limited to the curated surface
-described in `PUBLIC_COURSEWORK_SCOPE.md`.
+semantic scanners remain in the archive, so automated privacy conclusions remain limited to the
+verified file set described in `COURSEWORK_VERIFICATION_SCOPE.md`.

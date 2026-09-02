@@ -1,4 +1,4 @@
-name: Representative coursework verification
+name: Coursework verification
 
 on:
   push:
@@ -20,8 +20,8 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
-      - name: Build and verify representative projects
-        run: python3 -m unittest discover -s representative_coursework_tests -v
+      - name: Build and verify coursework
+        run: python3 -m unittest discover -s coursework_tests -v
 
   gitleaks:
     runs-on: ubuntu-latest

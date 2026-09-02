@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit public-coursework boundaries without printing matched private data."""
+"""Audit coursework verification boundaries without printing matched private data."""
 
 from __future__ import annotations
 
@@ -15,10 +15,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CURATED_FILES = {
-    ".github/workflows/representative-coursework.yml",
+VERIFIED_FILES = {
+    ".github/workflows/coursework-verification.yml",
     "README.md",
-    "PUBLIC_COURSEWORK_SCOPE.md",
+    "COURSEWORK_VERIFICATION_SCOPE.md",
     "TROUBLESHOOTING.md",
     "WORKLOG.md",
     "Programming_Languages/README.md",
@@ -30,8 +30,8 @@ CURATED_FILES = {
     "Algorithm/src/MyInteger.h",
     "Algorithm/src/hw1_common.h",
     "Algorithm/src/hw1_myheader.h",
-    "representative_coursework_tests/algorithm_harness.cpp",
-    "representative_coursework_tests/test_representative_projects.py",
+    "coursework_tests/algorithm_harness.cpp",
+    "coursework_tests/test_coursework_verification.py",
     "scripts/audit_public_surface.py",
 }
 TEXT_SUFFIXES = {
@@ -110,7 +110,7 @@ def extract_archive_text(data: bytes, suffix: str) -> tuple[str, bool]:
 
 
 def audit_current_tree(files: list[Path]) -> tuple[int, dict[str, int]]:
-    curated_violations = 0
+    verified_violations = 0
     archive_identity_text_files = 0
     archive_identity_filenames = 0
     archive_artifacts = 0
@@ -128,8 +128,8 @@ def audit_current_tree(files: list[Path]) -> tuple[int, dict[str, int]]:
 
         if suffix in TEXT_SUFFIXES:
             identity = contains_identity(read_text(path))
-            if relative in CURATED_FILES:
-                curated_violations += int(identity)
+            if relative in VERIFIED_FILES:
+                verified_violations += int(identity)
             elif identity:
                 archive_identity_text_files += 1
             continue
@@ -145,7 +145,7 @@ def audit_current_tree(files: list[Path]) -> tuple[int, dict[str, int]]:
             archive_content_unscanned += int(not content_aware)
             archive_identity_content_files += int(contains_identity(text))
 
-    return curated_violations, {
+    return verified_violations, {
         "binary_or_submission_artifacts": archive_artifacts,
         "identity_bearing_filenames": archive_identity_filenames,
         "identity_bearing_text_files": archive_identity_text_files,
@@ -237,7 +237,7 @@ def audit_history() -> dict[str, int | bool]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Audit representative public coursework and optional archive/history")
+    parser = argparse.ArgumentParser(description="Audit coursework verification boundaries and optional archive/history")
     parser.add_argument(
         "--full",
         action="store_true",
@@ -246,14 +246,14 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     files = repository_files()
-    curated_violations, archive_review = audit_current_tree(files)
+    verified_violations, archive_review = audit_current_tree(files)
     history_review = audit_history() if args.full else {
         "reviewed": False,
         "complete_history_available": False,
     }
     repository_wide_safe = (
         args.full
-        and curated_violations == 0
+        and verified_violations == 0
         and not any(
             archive_review[key]
             for key in (
@@ -269,8 +269,8 @@ def main(argv: list[str] | None = None) -> int:
         and history_review.get("binary_blobs_without_content_aware_scanner") == 0
     )
     report = {
-        "curated_files_checked": len(CURATED_FILES),
-        "curated_identity_violations": curated_violations,
+        "verified_files_checked": len(VERIFIED_FILES),
+        "verified_identity_violations": verified_violations,
         "archive_only_review": archive_review,
         "history_review": history_review,
         "safe_to_claim_repository_wide_privacy": repository_wide_safe,
@@ -280,7 +280,7 @@ def main(argv: list[str] | None = None) -> int:
         ],
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 1 if curated_violations else 0
+    return 1 if verified_violations else 0
 
 
 if __name__ == "__main__":

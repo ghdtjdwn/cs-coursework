@@ -4,7 +4,7 @@ PyTorch로 **CNN → Transformer(밑바닥 구현) → Vision Transformer(ViT) �
 
 > **기술 스택:** Python · PyTorch · torchvision · **HuggingFace transformers** · scikit-learn · NumPy · Matplotlib
 
-| 과제 | 주제 | 핵심 성과 |
+| 과제 | 주제 | 구현과 결과 |
 |------|------|-----------|
 | Assignment 0 | Python·NumPy·PyTorch 기초 | 텐서/autograd/MNIST 파이프라인 |
 | **Assignment 1** | **CNN 이미지 분류 (CIFAR-10)** | **테스트 정확도 50% → 83%** (Inception 모듈 설계) |
