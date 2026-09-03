@@ -1,4 +1,3 @@
-//20221528_홍성주
 import java.util.Scanner;
 
 public class myCalculator {

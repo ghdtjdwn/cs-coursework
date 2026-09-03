@@ -4,7 +4,7 @@
 
 > **기술 스택:** C · RISC-V ISA(RV32I) · 비트 연산(시프트·마스크) · 파일 I/O
 
-소스: [`src/main.c`](./src/main.c) · 보고서: `report.pdf`
+소스: [`src/main.c`](./src/main.c)
 
 ---
 

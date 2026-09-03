@@ -8,7 +8,7 @@ POSIX 시스템 콜을 직접 다루어 **자동 채점 시스템**과 **MD5 기
 
 ## 📂 Project 1 — `ssu_score` : 자동 채점 시스템 (⭐ 성능 최적화 프로젝트)
 
-`project1_ssu_score/` · 소스: [`source/`](./project1_ssu_score/source) · 보고서: `report.docx` · 명세: `spec.pdf`
+`project1_ssu_score/` · 소스: [`source/`](./project1_ssu_score/source)
 
 ### 과제 목표
 학생 답안 디렉토리를 **정답 디렉토리와 자동 비교·채점**하여 `score.csv`로 점수표를 산출하는 채점기를 작성한다. 두 가지 문제 유형을 모두 지원한다.
@@ -65,7 +65,7 @@ make
 
 ## 📂 Project 2 — `ssu_find-md5` : 중복 파일 탐색·정리 도구 (≈2,300줄)
 
-`project2_ssu_find-md5/` · 소스: [`ssu_find-md5.c`](./project2_ssu_find-md5/ssu_find-md5.c), `ssu_clean.c`, `ssu_help.c` · 보고서: `report.docx` · 명세: `spec.pdf`
+`project2_ssu_find-md5/` · 소스: [`ssu_find-md5.c`](./project2_ssu_find-md5/ssu_find-md5.c), `ssu_clean.c`, `ssu_help.c`
 
 `fdupes`와 유사한 **대화형 파일 관리 셸**입니다. 프롬프트에서 명령을 입력하면 디렉토리 트리에서 내용이 동일한 파일을 찾아 묶고, 옵션에 따라 정리(삭제)합니다.
 

@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 // UDP 소켓 서버: 9876 포트에서 DatagramPacket을 수신해 클라이언트가 보낸 이름을
-// 출력하고, 요청을 보낸 주소/포트로 학번(20221528)을 응답한 뒤 종료한다.
+// 출력하고, 요청을 보낸 주소/포트로 학번(00000000)을 응답한 뒤 종료한다.
 class UDPServer {
     public static void main(String args[]) throws Exception {
         DatagramSocket serverSocket = new DatagramSocket(9876);
@@ -33,7 +33,7 @@ class UDPServer {
             System.out.println("Client가 보낸 이름 : " + myName);
             // Client가 보낸 이름 출력
 
-            String studentId = "20221528";
+            String studentId = "00000000";
             sendData = studentId.getBytes();
             // Client에게 보낼 학번을 studentId 변수에 저장
 

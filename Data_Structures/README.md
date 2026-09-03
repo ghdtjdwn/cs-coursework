@@ -7,7 +7,7 @@
 ---
 
 ## 📂 MyCalculator — 스택 기반 수식 계산기 (`MyCalculator/`)
-중위 표기 수식을 후위 표기로 변환하고 계산하는 계산기입니다. (`myCalculator.java`, 실행 화면 `screenshot1~4.png`)
+중위 표기 수식을 후위 표기로 변환하고 계산하는 계산기입니다. (`myCalculator.java`)
 
 - **과제 목표:** 사용자가 입력한 **중위(infix) 수식**을 **후위(postfix)** 로 변환하고 계산한다.
 - **구현 내용:**
@@ -18,7 +18,7 @@
 - **핵심:** 스택의 대표 응용(수식 파싱·평가), 연산자 우선순위, 견고한 입력 검증.
 
 ## 📂 Sorting — 정렬 알고리즘 4종 시각화 (`Sorting/`)
-삽입·선택·병합·퀵 정렬을 구현하고 **정렬 과정을 단계별로 출력**합니다. (`sort.java` — 보고서 `report.pdf`의 소스를 코드로 복원, 컴파일 검증 완료)
+삽입·선택·병합·퀵 정렬을 구현하고 **정렬 과정을 단계별로 출력**합니다. (`sort.java`, 컴파일 검증 완료)
 
 - **구현 내용:** 삽입(`System.arraycopy`로 시프트), 선택(최댓값을 뒤에서부터 채움), 병합(분할정복 + 보조 배열 `merge`), 퀵(첫 원소 pivot 양방향 분할 `arrayDivid`). 매 단계 배열 상태를 출력하고, 0~31 난수 32개로 메뉴 기반 테스트.
 - **핵심:** 분할정복(재귀), in-place(삽입/선택/퀵) vs 보조 배열(병합), 정렬 과정의 시각적 추적.
@@ -26,7 +26,7 @@
 > 📝 같은 정렬 주제를 **Algorithm 과목에서는 C++ 이동 의미론**으로 다룹니다 → [../Algorithm](../Algorithm) 와 비교.
 
 ## 📂 DoubleArraySeq — 커서 기반 동적 배열 시퀀스 (`DoubleArraySeq/`)
-크기가 자동 확장되는 `double` 시퀀스 컨테이너 ADT입니다. (`DoubleArraySeqClass.java`, 데모 `DoubleArraySeqDemo.java`, 보고서 `report.pdf`)
+크기가 자동 확장되는 `double` 시퀀스 컨테이너 ADT입니다. (`DoubleArraySeqClass.java`, 데모 `DoubleArraySeqDemo.java`)
 
 - **과제 목표:** 내부 배열을 동적으로 확장하며 **커서(current)** 개념으로 원소를 순회·편집하는 시퀀스 ADT 구현.
 - **구현한 연산 (메서드 단위):**

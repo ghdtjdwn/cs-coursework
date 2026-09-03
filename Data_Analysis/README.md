@@ -1,11 +1,11 @@
 # 📊 Data Analysis (데이터 분석)
 
-UC Berkeley의 *Foundations of Data Science(**Data 8**)* 커리큘럼을 기반으로, **표 데이터 처리 → 시각화 → 시뮬레이션·확률 → 추론 통계(가설검정·신뢰구간) → 회귀**까지 데이터 과학의 전 과정을 Python으로 실습한 과목입니다. 총 22개의 랩 노트북(lab03–05, lab07–25)을 직접 작성·실행했으며, lab01·02는 입문용 문서(PDF)로 포함했습니다.
+UC Berkeley의 *Foundations of Data Science(**Data 8**)* 커리큘럼을 기반으로, **표 데이터 처리 → 시각화 → 시뮬레이션·확률 → 추론 통계(가설검정·신뢰구간) → 회귀**까지 데이터 과학의 전 과정을 Python으로 실습한 과목입니다. 총 22개의 랩 노트북(lab03–05, lab07–25)을 정리했습니다.
 
 > **기술 스택:** Python · `datascience`(Berkeley Tables) · NumPy · Matplotlib · SciPy · 확률·통계
 
 - `00_intro_hello_world.ipynb` — 환경 설정/소개용 인트로 노트북
-- `labs/` — lab01~lab25 (각 노트북 `.ipynb` + 문제·해설 `.pdf`)
+- `labs/` — lab03~05, lab07~25 노트북 `.ipynb`
 
 ---
 
@@ -13,7 +13,6 @@ UC Berkeley의 *Foundations of Data Science(**Data 8**)* 커리큘럼을 기반�
 
 | Lab | 주제 | 핵심 내용 |
 |-----|------|-----------|
-| 01–02 | 시작하기 *(PDF)* | 파이썬·Jupyter 환경, 표현식 기초 |
 | 03 | Table Operations | `datascience` Table 생성·열 선택·정렬 |
 | 04 | Data Types & Arrays | 문자열/숫자, NumPy 배열 연산 |
 | 05 | Table Manipulation & Visualization | 실업률·출생률 데이터 시각화 |
@@ -59,4 +58,4 @@ UC Berkeley의 *Foundations of Data Science(**Data 8**)* 커리큘럼을 기반�
 pip install datascience numpy matplotlib scipy
 jupyter notebook labs/lab25.ipynb     # 또는 Google Colab 업로드
 ```
-> 각 노트북에는 실행 결과(표·그래프·통계량)가 그대로 보존되어 있습니다.
+> 공개본은 실행 출력과 계정 메타데이터를 저장하지 않습니다. 셀을 순서대로 실행해 결과를 다시 생성할 수 있습니다.

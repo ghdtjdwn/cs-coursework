@@ -1,6 +1,6 @@
 # 🌐 Network Programming (네트워크 프로그래밍)
 
-원시 소켓부터 **TLS·비동기 I/O·분산 메시징·HTTP/REST·웹 스크래핑**까지, 현대 네트워크 애플리케이션의 핵심 기법을 Python으로 폭넓게 구현한 과목입니다. 4개의 과제 세트(총 19개 솔루션, 각 폴더에 `report.pdf` 포함)로 구성됩니다.
+원시 소켓부터 **TLS·비동기 I/O·분산 메시징·HTTP/REST·웹 스크래핑**까지, 현대 네트워크 애플리케이션의 핵심 기법을 Python으로 폭넓게 구현한 과목입니다. 4개의 과제 세트, 총 19개 솔루션으로 구성됩니다.
 
 > **기술 스택:** Python · `socket` · `ssl`(TLS) · `asyncio` · **ZeroMQ(pyzmq)** · **memcached(pymemcache)** · `pickle`/`struct` · Flask · `requests` · BeautifulSoup
 

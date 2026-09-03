@@ -17,7 +17,7 @@
 #include <time.h>
 
 /* ssu_clean 프롬프트에 출력할 학번이다. */
-#define STUDENT_ID "20221528"
+#define STUDENT_ID "00000000"
 
 /* Linux 경로/파일명 제한을 명세 기준으로 고정한다. */
 #define SSU_PATH_MAX 4096

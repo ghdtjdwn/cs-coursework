@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 // TCP 소켓 서버: 6789 포트에서 클라이언트 접속을 기다리다가, 클라이언트가 보낸
-// 문자열을 받아 출력하고 학번(20221528)을 응답으로 돌려준 뒤 종료한다.
+// 문자열을 받아 출력하고 학번(00000000)을 응답으로 돌려준 뒤 종료한다.
 class TCPServer {
     public static void main(String argv[]) throws Exception {
         String clientSentence; // Client에서 data를 보내면 받고 저장할 변수 선언.
@@ -32,7 +32,7 @@ class TCPServer {
             System.out.println("클라이언트가 보낸 메시지 : " + clientSentence);
             // client에서 보낸 메시지를 바로 console에 출력
 
-            outToClient.writeBytes("20221528\n");
+            outToClient.writeBytes("00000000\n");
             // 마지막으로 Client에 학번을 보냄.
             System.out.println("Client로 학번이 전송됨");
 

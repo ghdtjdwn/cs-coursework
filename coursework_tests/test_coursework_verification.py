@@ -8,6 +8,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from scripts.audit_public_surface import audit_current_tree, inspect_notebook
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -163,10 +165,82 @@ class CourseworkVerificationTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout, "4 sorting algorithms passed with zero copies\n")
 
-    def test_verified_file_set_has_no_generic_identity_markers(self) -> None:
+    def test_current_public_tree_has_no_unreviewed_deliverables_or_execution_state(self) -> None:
         result = run([sys.executable, "scripts/audit_public_surface.py"])
 
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        report = json.loads(result.stdout)
+        review = report["archive_only_review"]
+        self.assertTrue(report["current_tree_generic_checks_pass"])
+        self.assertEqual(review["binary_or_submission_artifacts"], 0)
+        self.assertEqual(review["identity_bearing_filenames"], 0)
+        self.assertEqual(review["identity_bearing_text_files"], 0)
+        self.assertEqual(review["identity_bearing_binary_content_files"], 0)
+        self.assertEqual(review["binary_files_without_content_aware_scanner"], 0)
+        self.assertEqual(review["notebook_parse_errors"], 0)
+        self.assertEqual(review["notebook_cells_with_outputs"], 0)
+        self.assertEqual(review["notebook_cells_with_execution_counts"], 0)
+        self.assertEqual(review["notebooks_with_private_metadata"], 0)
+        self.assertEqual(review["notebooks_checked"], len(list(ROOT.rglob("*.ipynb"))))
+
+    def test_public_tree_audit_rejects_alternate_artifacts_and_text_extensions(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(dir=ROOT) as tempdir:
+            temporary = Path(tempdir)
+            html = temporary / "identity.html"
+            css = temporary / "identity.css"
+            csv = temporary / "identity.csv"
+            makefile = temporary / "Makefile"
+            image = temporary / "screenshot.jpg"
+            weights = temporary / "weights.safetensors"
+            archive = temporary / "submission.zip"
+            unknown_binary = temporary / "artifact.dat"
+            synthetic_student_id = "20" + "999999"
+            for text_file in (html, css, csv, makefile):
+                text_file.write_text(f"student {synthetic_student_id}", encoding="utf-8")
+            image.write_bytes(b"image")
+            weights.write_bytes(b"weights")
+            archive.write_bytes(b"archive")
+            unknown_binary.write_bytes(b"binary\0payload")
+
+            _, review = audit_current_tree(
+                [html, css, csv, makefile, image, weights, archive, unknown_binary]
+            )
+
+        self.assertEqual(review["identity_bearing_text_files"], 4)
+        self.assertEqual(review["binary_or_submission_artifacts"], 3)
+        self.assertEqual(review["binary_files_without_content_aware_scanner"], 4)
+
+    def test_notebook_audit_rejects_colab_metadata_and_invalid_structure(self) -> None:
+        with tempfile.TemporaryDirectory(dir=ROOT) as tempdir:
+            temporary = Path(tempdir)
+            private_notebook = temporary / "private.ipynb"
+            invalid_notebook = temporary / "invalid.ipynb"
+            private_notebook.write_text(
+                json.dumps(
+                    {
+                        "metadata": {"colab": {"authorship_tag": "example"}},
+                        "cells": [
+                            {
+                                "cell_type": "code",
+                                "metadata": {"outputId": "example"},
+                                "source": ["print('ok')"],
+                                "execution_count": None,
+                                "outputs": [],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            invalid_notebook.write_text('{"cells": "not-a-list"}', encoding="utf-8")
+
+            private_review = inspect_notebook(private_notebook)
+            invalid_review = inspect_notebook(invalid_notebook)
+
+        self.assertEqual(private_review["files_with_private_metadata"], 1)
+        self.assertEqual(invalid_review["parse_errors"], 1)
 
     def test_full_privacy_audit_reports_history_without_disclosing_matches(self) -> None:
         result = run([sys.executable, "scripts/audit_public_surface.py", "--full"])

@@ -15,13 +15,14 @@ python3 -m unittest discover -s coursework_tests -v
 ```
 
 이 검증은 Python/C++ interpreter, RISC-V disassembler·simulator와 네 가지 sorting 구현을 임시
-디렉터리에서 build하고 핵심 동작을 확인합니다. 전체 과제 제출물의 품질이나 역사적 report의 모든
-수치를 자동 검증한다는 의미는 아닙니다.
+디렉터리에서 build하고 핵심 동작을 확인합니다. 모든 과목의 품질이나 과거 실행 결과를 자동
+검증한다는 의미는 아닙니다.
 
 현재 트리와 가져온 Git 이력의 공개 범위 감사는
 `python3 scripts/audit_public_surface.py --full`로 재현할 수 있습니다. 이 검사는 탐지값이나
-파일 경로를 출력하지 않고 집계만 보고하며, 전체 저장소를 곧바로 공개해도 된다는 보증은
-하지 않습니다. 실제 감사 결과와 남은 수동 검토 범위는
+파일 경로를 출력하지 않고 집계만 보고합니다. 현재 트리의 일반 식별자, 실행 출력, 노트북 실행
+메타데이터와 미검토 산출물을 검사하지만, 과거 Git 이력까지 지워졌다는 의미는 아닙니다. 실제
+감사 결과와 남은 수동 검토 범위는
 [`COURSEWORK_VERIFICATION_SCOPE.md`](./COURSEWORK_VERIFICATION_SCOPE.md), 재현 중 해결한 문제는
 [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)에 기록했습니다.
 
@@ -125,6 +126,7 @@ python interpreter.py
 jupyter notebook   # 또는 Google Colab 업로드
 ```
 
-> 소스코드 내 한글 주석은 UTF-8로 정리했습니다. PDF/DOCX·캡처·notebook·model 파일은
-> 역사적 제출 archive이며, 개인정보와 제3자 과제 문구를 개별 검토하기 전에는 자동
-> 검증 범위로 간주하지 않습니다. 범위는 [`COURSEWORK_VERIFICATION_SCOPE.md`](./COURSEWORK_VERIFICATION_SCOPE.md)를 따릅니다.
+> 소스코드 내 한글 주석은 UTF-8로 정리했습니다. 현재 공개 트리에서는 보고서·과제 명세·캡처·
+> 학습 가중치를 제외했고, 노트북은 코드만 남기고 실행 출력과 계정 메타데이터를 제거했습니다.
+> 삭제된 파일과 이전 메타데이터는 Git 이력에 남아 있으므로 범위는
+> [`COURSEWORK_VERIFICATION_SCOPE.md`](./COURSEWORK_VERIFICATION_SCOPE.md)를 따릅니다.

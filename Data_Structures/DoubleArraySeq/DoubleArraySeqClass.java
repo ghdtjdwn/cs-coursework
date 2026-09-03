@@ -1,6 +1,5 @@
 /**
- * 학번_20221528
- * 이름_홍성주
+ * Coursework exercise
  *
  * DoubleArraySeq 클래스는 double 타입의 숫자 시퀀스를 저장하고 관리한다.
  * 이 프로젝트에서는 자바를 통해 Array를 구현한다.

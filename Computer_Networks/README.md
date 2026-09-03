@@ -4,14 +4,12 @@ Java 소켓 API로 **TCP / UDP 클라이언트–서버 통신 프로그램**을
 
 > **기술 스택:** Java · `ServerSocket`/`Socket`(TCP) · `DatagramSocket`/`DatagramPacket`(UDP) · `BufferedReader`/`DataOutputStream` · `InetAddress`
 
-소스: `TCPServer.java`, `TCPClient.java`, `UDPServer.java`, `UDPClient.java` · 보고서: `report_TCP_socket.pdf`, `report_UDP_socket.pdf`
-
-> 📝 `.java` 파일은 제출 보고서(PDF)의 소스 화면을 그대로 옮긴 것이며(`javac` 컴파일 검증 완료), 보고서에는 실제 실행 결과 화면이 함께 담겨 있습니다.
+소스: `TCPServer.java`, `TCPClient.java`, `UDPServer.java`, `UDPClient.java` (`javac` 컴파일 검증 완료)
 
 ---
 
 ## 📂 TCP 소켓 프로그램 — 연결 지향(connection-oriented)
-- **`TCPServer.java`** — 6789 포트에서 `ServerSocket`을 만들고 `accept()`로 접속 대기 → 클라이언트 문장을 `BufferedReader.readLine()`으로 수신·출력 → `DataOutputStream.writeBytes()`로 학번(20221528) 응답 → 연결 종료.
+- **`TCPServer.java`** — 6789 포트에서 `ServerSocket`을 만들고 `accept()`로 접속 대기 → 클라이언트 문장을 `BufferedReader.readLine()`으로 수신·출력 → `DataOutputStream.writeBytes()`로 학번(00000000) 응답 → 연결 종료.
 - **`TCPClient.java`** — `new Socket("localhost", 6789)`로 연결 → 키보드 입력을 서버로 전송 → 서버 응답(학번) 수신·출력.
 - **소켓 생명주기:** `socket → bind/listen → accept → (read/write 스트림) → close` — `accept()`가 블로킹되어 연결이 수립되면 통신용 소켓(`connectionSocket`)이 별도로 생성되는 구조를 직접 확인.
 

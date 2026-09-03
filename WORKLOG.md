@@ -1,5 +1,12 @@
 # Work log
 
+## 2026-09-03 — Current-tree coursework privacy boundary
+
+- Objective: remove account identifiers and unreviewed submission artifacts from the public working tree while keeping runnable source and notebook code.
+- Changes: removed 62 report, specification, screenshot, and trained-model files plus one stale Conda lock; anonymized student identifiers in source; cleared outputs, execution counts, local or embedded image payloads, and account metadata from 30 notebooks. The public-surface audit now gates the complete current tree and rejects those artifacts or notebook states if they return.
+- Validation: eight build, behavior, privacy, and negative-fixture tests passed. The default audit reports zero current-tree artifacts or generic identity findings and 30 clean notebooks; alternate text, image, model, archive, unknown-binary, Colab-metadata, and malformed-notebook fixtures are rejected. The full-history audit still refuses a repository-wide privacy claim because older commits retain 74 identity-bearing blobs and 13 binary blobs without a content-aware scanner. The touched Java network, calculator, and sequence sources compile successfully.
+- Delivery: the change is carried on `chore/public-coursework-privacy` through the required pull-request checks. This repository has no runtime deployment surface.
+
 ## 2026-09-03 — Coursework verification terminology
 
 - Objective: make the documentation and automation use consistent terms for automated guarantees and manual-review boundaries.

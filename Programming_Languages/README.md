@@ -4,7 +4,7 @@
 
 > **기술 스택:** Python · C++ (동일 사양을 두 언어로 구현) · 정규식 토크나이저 · 재귀하향 파서(Recursive Descent) · AST 트리워킹 인터프리터(인터프리터 패턴)
 
-소스: [`interpreter.py`](./interpreter.py), [`interpreter.cpp`](./interpreter.cpp) · 보고서: `report.pdf`
+소스: [`interpreter.py`](./interpreter.py), [`interpreter.cpp`](./interpreter.cpp)
 
 ---
 

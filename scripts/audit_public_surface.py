@@ -48,7 +48,50 @@ TEXT_SUFFIXES = {
     ".yaml",
     ".yml",
 }
-ARCHIVE_SUFFIXES = {".docx", ".ipynb", ".pdf", ".png", ".pth"}
+PUBLIC_DELIVERABLE_SUFFIXES = {
+    ".7z",
+    ".bmp",
+    ".ckpt",
+    ".docx",
+    ".gif",
+    ".gz",
+    ".h5",
+    ".hdf5",
+    ".jpeg",
+    ".jpg",
+    ".joblib",
+    ".npy",
+    ".npz",
+    ".onnx",
+    ".pdf",
+    ".pickle",
+    ".pkl",
+    ".png",
+    ".pt",
+    ".pth",
+    ".rar",
+    ".safetensors",
+    ".tar",
+    ".tgz",
+    ".tif",
+    ".tiff",
+    ".webp",
+    ".zip",
+}
+ARCHIVE_SUFFIXES = PUBLIC_DELIVERABLE_SUFFIXES | {".ipynb"}
+PRIVATE_NOTEBOOK_METADATA_KEYS = {
+    "ExecuteTime",
+    "authorship_tag",
+    "base_uri",
+    "colab",
+    "displayName",
+    "executionInfo",
+    "outputId",
+    "trusted",
+    "user",
+    "userId",
+    "widgets",
+}
 MAX_HISTORY_BLOB_BYTES = 20 * 1024 * 1024
 STUDENT_ID = re.compile(r"\b20\d{6}\b")
 STUDENT_ID_IN_PATH = re.compile(r"20\d{6}")
@@ -56,10 +99,18 @@ EMAIL = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 
 
 def repository_files() -> list[Path]:
+    result = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError("unable to enumerate tracked repository files")
     return sorted(
-        path
-        for path in ROOT.rglob("*")
-        if path.is_file() and ".git" not in path.relative_to(ROOT).parts
+        ROOT / relative.decode("utf-8", errors="surrogateescape")
+        for relative in result.stdout.split(b"\0")
+        if relative
     )
 
 
@@ -72,6 +123,81 @@ def read_text(path: Path) -> str:
         return path.read_text(encoding="utf-8-sig")
     except (OSError, UnicodeDecodeError):
         return ""
+
+
+def read_checked_text(path: Path) -> tuple[str, bool]:
+    try:
+        data = path.read_bytes()
+        if b"\0" in data:
+            return "", False
+        return data.decode("utf-8-sig"), True
+    except (OSError, UnicodeDecodeError):
+        return "", False
+
+
+def contains_private_notebook_metadata(value: object) -> bool:
+    if isinstance(value, dict):
+        return any(
+            key in PRIVATE_NOTEBOOK_METADATA_KEYS
+            or contains_private_notebook_metadata(child)
+            for key, child in value.items()
+        )
+    if isinstance(value, list):
+        return any(contains_private_notebook_metadata(child) for child in value)
+    return False
+
+
+def inspect_notebook(path: Path) -> dict[str, int]:
+    try:
+        notebook = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return {
+            "parse_errors": 1,
+            "cells_with_outputs": 0,
+            "cells_with_execution_counts": 0,
+            "files_with_private_metadata": 0,
+        }
+
+    if not isinstance(notebook, dict):
+        return {
+            "parse_errors": 1,
+            "cells_with_outputs": 0,
+            "cells_with_execution_counts": 0,
+            "files_with_private_metadata": 0,
+        }
+    cells = notebook.get("cells")
+    valid_cells = isinstance(cells, list) and all(
+        isinstance(cell, dict)
+        and cell.get("cell_type") in {"code", "markdown", "raw"}
+        and isinstance(cell.get("metadata", {}), dict)
+        and isinstance(cell.get("source", []), (str, list))
+        for cell in cells
+    )
+    if not valid_cells:
+        return {
+            "parse_errors": 1,
+            "cells_with_outputs": 0,
+            "cells_with_execution_counts": 0,
+            "files_with_private_metadata": 0,
+        }
+    metadata = {
+        "notebook": notebook.get("metadata", {}),
+        "cells": [cell.get("metadata", {}) for cell in cells if isinstance(cell, dict)],
+    }
+    return {
+        "parse_errors": 0,
+        "cells_with_outputs": sum(
+            bool(cell.get("outputs"))
+            for cell in cells
+            if isinstance(cell, dict) and cell.get("cell_type") == "code"
+        ),
+        "cells_with_execution_counts": sum(
+            cell.get("execution_count") is not None
+            for cell in cells
+            if isinstance(cell, dict) and cell.get("cell_type") == "code"
+        ),
+        "files_with_private_metadata": int(contains_private_notebook_metadata(metadata)),
+    }
 
 
 def extract_archive_text(data: bytes, suffix: str) -> tuple[str, bool]:
@@ -117,24 +243,45 @@ def audit_current_tree(files: list[Path]) -> tuple[int, dict[str, int]]:
     archive_content_scanned = 0
     archive_identity_content_files = 0
     archive_content_unscanned = 0
+    notebooks_checked = 0
+    notebook_parse_errors = 0
+    notebook_output_cells = 0
+    notebook_execution_count_cells = 0
+    notebooks_with_private_metadata = 0
 
     for path in files:
         relative = path.relative_to(ROOT).as_posix()
         suffix = path.suffix.casefold()
-        if suffix in ARCHIVE_SUFFIXES:
+        if suffix in PUBLIC_DELIVERABLE_SUFFIXES:
             archive_artifacts += 1
         if STUDENT_ID_IN_PATH.search(relative):
             archive_identity_filenames += 1
 
-        if suffix in TEXT_SUFFIXES:
-            identity = contains_identity(read_text(path))
+        if suffix not in ARCHIVE_SUFFIXES:
+            text, content_aware = read_checked_text(path)
+            if not content_aware:
+                archive_content_unscanned += 1
+                continue
+            identity = contains_identity(text)
             if relative in VERIFIED_FILES:
                 verified_violations += int(identity)
             elif identity:
                 archive_identity_text_files += 1
             continue
 
-        if suffix in ARCHIVE_SUFFIXES:
+        if suffix == ".ipynb":
+            notebooks_checked += 1
+            notebook_review = inspect_notebook(path)
+            notebook_parse_errors += notebook_review["parse_errors"]
+            notebook_output_cells += notebook_review["cells_with_outputs"]
+            notebook_execution_count_cells += notebook_review["cells_with_execution_counts"]
+            notebooks_with_private_metadata += notebook_review["files_with_private_metadata"]
+            archive_content_scanned += int(not notebook_review["parse_errors"])
+            archive_content_unscanned += notebook_review["parse_errors"]
+            archive_identity_content_files += int(contains_identity(read_text(path)))
+            continue
+
+        if suffix in PUBLIC_DELIVERABLE_SUFFIXES:
             try:
                 data = path.read_bytes()
             except OSError:
@@ -152,6 +299,11 @@ def audit_current_tree(files: list[Path]) -> tuple[int, dict[str, int]]:
         "content_aware_binary_files_scanned": archive_content_scanned,
         "identity_bearing_binary_content_files": archive_identity_content_files,
         "binary_files_without_content_aware_scanner": archive_content_unscanned,
+        "notebooks_checked": notebooks_checked,
+        "notebook_parse_errors": notebook_parse_errors,
+        "notebook_cells_with_outputs": notebook_output_cells,
+        "notebook_cells_with_execution_counts": notebook_execution_count_cells,
+        "notebooks_with_private_metadata": notebooks_with_private_metadata,
     }
 
 
@@ -251,18 +403,23 @@ def main(argv: list[str] | None = None) -> int:
         "reviewed": False,
         "complete_history_available": False,
     }
+    current_tree_generic_checks_pass = verified_violations == 0 and not any(
+        archive_review[key]
+        for key in (
+            "binary_or_submission_artifacts",
+            "identity_bearing_filenames",
+            "identity_bearing_text_files",
+            "identity_bearing_binary_content_files",
+            "binary_files_without_content_aware_scanner",
+            "notebook_parse_errors",
+            "notebook_cells_with_outputs",
+            "notebook_cells_with_execution_counts",
+            "notebooks_with_private_metadata",
+        )
+    )
     repository_wide_safe = (
         args.full
-        and verified_violations == 0
-        and not any(
-            archive_review[key]
-            for key in (
-                "identity_bearing_filenames",
-                "identity_bearing_text_files",
-                "identity_bearing_binary_content_files",
-                "binary_files_without_content_aware_scanner",
-            )
-        )
+        and current_tree_generic_checks_pass
         and history_review.get("reviewed") is True
         and history_review.get("identity_bearing_blobs") == 0
         and history_review.get("oversized_blobs_not_scanned") == 0
@@ -272,15 +429,17 @@ def main(argv: list[str] | None = None) -> int:
         "verified_files_checked": len(VERIFIED_FILES),
         "verified_identity_violations": verified_violations,
         "archive_only_review": archive_review,
+        "current_tree_generic_checks_pass": current_tree_generic_checks_pass,
         "history_review": history_review,
         "safe_to_claim_repository_wide_privacy": repository_wide_safe,
         "limitations": [
             "Generic patterns do not prove that personal names, faces, instructor content, or third-party rights are absent.",
+            "Notebook source and Markdown remain reviewable coursework; outputs and execution metadata are intentionally absent.",
             "Image/model raw metadata checks are not equivalent to semantic visual or model-content review.",
         ],
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 1 if verified_violations else 0
+    return 0 if current_tree_generic_checks_pass else 1
 
 
 if __name__ == "__main__":
